@@ -15,5 +15,6 @@ enum solutions{
     INF_SOL,
     ERROR
 };
+double input[3], roots[2];
 
 #endif

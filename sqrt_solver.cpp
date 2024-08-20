@@ -1,10 +1,12 @@
-#include "functions.h"
+#include "sqrt_solver.h" // rename
 #include <math.h>
 
 
 int Check_zero(double a){
-    if (fabs(a) <= epsilon){return 1;}
-    else {return 0;}
+    if (fabs(a) <= epsilon){
+        return 1;
+    }
+    return 0;
 }
 
 int Solve_linear(double b, double c, double *roots)
