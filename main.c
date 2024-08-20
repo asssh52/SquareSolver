@@ -26,21 +26,14 @@ int sqrtsolver(double a, double b, double c, double s[])
         return 2;
     }
 }
+
 int main() {
     double a, b, c, s[2];
     char *kek;
     size_t maxl = MAXLINE;
     kek = (char *)malloc(maxl * sizeof(char));
     
-    getline(&kek, &maxl, stdin);
-    a = atof(kek);
-    getline(&kek, &maxl, stdin);
-    b = atof(kek);
-    getline(&kek, &maxl, stdin);
-    c = atof(kek);
-    
-    printf("%f\n%f\n%f", a, b, c);
-    printf("%s", kek);
+    scanf("%lf%lf%lf", &a, &b, &c);
     
     switch (sqrtsolver(a, b, c, s)) {
         case -1:
