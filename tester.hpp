@@ -9,6 +9,5 @@ typedef struct{
 
 int Test_Square(int num_test, equation *keys);
 void Do_Tests(int start_test, int end_test, equation *keys);
-double Round_To(double number, int digits);
 
 #endif /* tester_hpp */

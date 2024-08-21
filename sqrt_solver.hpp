@@ -3,12 +3,11 @@
 
 #include <stdio.h>
 
-int Solve_Linear(double b, double c, double *roots);
-int Solution_count(double a, double b, double c);
-int Solve_Square(double a, double b, double c, double *roots);
-int Check_zero(double a);
-double Power(double a, int pow);
-static const double epsilon = 0.000001;
+int Solve_Linear(double *input, double *roots);
+int Solution_count(double *input);
+int Solve_Square(double *input, double *roots);
+int If_Zero(double a);
+static const double epsilon = 1e-5;
 enum solutions{
     NONE_SOL,
     ONE_SOL,

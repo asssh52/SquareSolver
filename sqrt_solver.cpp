@@ -1,27 +1,23 @@
 #include "sqrt_solver.hpp"
 #include <math.h>
 
-double Power(double a, int pow) // TODO: with epsilon
-{
-    double memory = 1;
-    for (int i = 0; i < pow; i++) memory*=a;
-    return memory;
-}
-
-int Check_zero(double a){ // TODO: rename
+int If_Zero(double a){
     if (fabs(a) <= epsilon){
         return 1;
     }
     return 0;
 }
 
-int Solve_Linear(double b, double c, double *roots)
+int Solve_Linear(double *input, double *roots)
 {
-    if (Check_zero(b) && !Check_zero(c))  {
+    double b = input[1];
+    double c = input[2];
+    
+    if (If_Zero(b) && !If_Zero(c))  {
         return NONE_SOL;
-    } else if (Check_zero(b) && Check_zero(c))  {
+    } else if (If_Zero(b) && If_Zero(c))  {
         return INF_SOL;
-    } else if (!Check_zero(b)) {
+    } else if (!If_Zero(b)) {
         roots[0] = -c / b;
         return ONE_SOL;
     } else {
@@ -29,8 +25,12 @@ int Solve_Linear(double b, double c, double *roots)
     }
 }
 
-int Solution_count(double a, double b, double c) // DO
+int Solution_count(double *input)
 {
+    double a = input[0];
+    double b = input[1];
+    double c = input[2];
+    
     double discriminant = b * b - 4 * a * c;
     if (discriminant > 0){
         return TWO_SOL;
@@ -41,13 +41,17 @@ int Solution_count(double a, double b, double c) // DO
     }
 }
 
-int Solve_Square(double a, double b, double c, double *roots)
+int Solve_Square(double *input, double *roots)
 {
+    double a = input[0];
+    double b = input[1];
+    double c = input[2];
+    
     if (a == 0){
-        return Solve_Linear(b, c, &roots[0]);
+        return Solve_Linear(input, roots);
     }
-
-    switch (Solution_count(a, b, c)) {
+    
+    switch (Solution_count(input)) {
         case TWO_SOL:
             roots[0] = (-b - sqrt(b * b - 4 * a * c))/(2 * a);
             roots[1] = (-b + sqrt(b * b - 4 * a * c))/(2 * a);

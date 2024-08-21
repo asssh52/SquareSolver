@@ -13,7 +13,7 @@ void Input_coef(double input[])
 
 void Showanswer_Square(double input[], double roots[])
 {
-    switch (Solve_Square(input[0], input[1], input[2], roots)){
+    switch (Solve_Square(input, roots)){
         case NONE_SOL:
             printf("Нет действительных решений\n");
             break;
