@@ -1,5 +1,5 @@
-#ifndef functions_h
-#define functions_h
+#ifndef functions_hpp
+#define functions_hpp
 
 #include <stdio.h>
 
@@ -7,7 +7,8 @@ int Solve_linear(double b, double c, double *roots);
 int Solution_count(double a, double b, double c);
 int Solve_sqrt(double a, double b, double c, double *roots);
 int Check_zero(double a);
-const double epsilon = 0.000001;
+double Power(double a, int pow);
+static const double epsilon = 0.000001;
 enum solutions{
     NONE_SOL,
     ONE_SOL,
@@ -15,6 +16,5 @@ enum solutions{
     INF_SOL,
     ERROR
 };
-double input[3], roots[2];
 
 #endif
