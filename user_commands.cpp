@@ -36,7 +36,7 @@ void Choose_Path(equation *keys){
         Showanswer_Square(input, roots);
     }
     else {
-        Do_Tests(0, 8, keys);
+        Do_Tests(0, 9, keys);
     }
 }
 
