@@ -5,10 +5,10 @@ typedef struct{
     double coefficients[3];
     double solutions[2];
     int nroots;
-} equasion;
+} equation;
 
-int Test_Square(int num_test, equasion keys[0]);
-void Do_Tests(int start_test, int end_test, equasion *keys);
+int Test_Square(int num_test, equation *keys);
+void Do_Tests(int start_test, int end_test, equation *keys);
 double Round_To(double number, int digits);
 
 #endif /* tester_hpp */

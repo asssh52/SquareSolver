@@ -15,7 +15,7 @@ int Check_zero(double a){ // TODO: rename
     return 0;
 }
 
-int Solve_linear(double b, double c, double *roots)
+int Solve_Linear(double b, double c, double *roots)
 {
     if (Check_zero(b) && !Check_zero(c))  {
         return NONE_SOL;
@@ -41,10 +41,10 @@ int Solution_count(double a, double b, double c) // DO
     }
 }
 
-int Solve_sqrt(double a, double b, double c, double *roots)
+int Solve_Square(double a, double b, double c, double *roots)
 {
     if (a == 0){
-        return Solve_linear(b, c, &roots[0]);
+        return Solve_Linear(b, c, &roots[0]);
     }
 
     switch (Solution_count(a, b, c)) {

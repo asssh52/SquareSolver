@@ -2,7 +2,7 @@
 #include "sqrt_solver.hpp"
 #include <math.h>
 
-int Test_Square(int num_test, equasion *keys)
+int Test_Square(int num_test, equation *keys)
 {
     double a = keys[num_test].coefficients[0];
     double b = keys[num_test].coefficients[1];
@@ -12,7 +12,7 @@ int Test_Square(int num_test, equasion *keys)
     int nroots_correct = keys[num_test].nroots;
     double roots[2] = {0, 0};
 
-    int n = Solve_sqrt(a, b, c, roots);
+    int n = Solve_Square(a, b, c, roots);
     if (n != nroots_correct ||
         Round_To(roots[0], 4)  != Round_To(x1_correct, 4) ||
         Round_To(roots[1], 4)  != Round_To(x2_correct, 4)){
@@ -29,7 +29,7 @@ int Test_Square(int num_test, equasion *keys)
     return 0;
 }
 
-void Do_Tests(int start_test, int end_test, equasion *keys)
+void Do_Tests(int start_test, int end_test, equation *keys)
 {
     for (int i = start_test; i <= end_test; i++){
         Test_Square(i, keys);
