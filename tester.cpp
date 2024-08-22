@@ -2,10 +2,6 @@
 #include "sqrt_solver.hpp"
 #include <math.h>
 
-#define COLOR_GREEN        "\x1b[32m"
-#define RESET_ALL          "\x1b[0m"
-#define COLOR_RED          "\x1b[31m"
-
 int Test_Square(int num_test, equation *keys)
 {
     double roots[2] = {0, 0};
@@ -13,7 +9,7 @@ int Test_Square(int num_test, equation *keys)
     if (n != keys[num_test].nroots ||
         fabs(keys[num_test].solutions[0] - roots[0]) > epsilon ||
         fabs(keys[num_test].solutions[1] - roots[1]) > epsilon){
-        printf(COLOR_RED "Test #%d Error\n" RESET_ALL
+        printf(COLOR_RED "Test #%d Error\n" COLOR_RESET
                "a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, nroots = %d\n"
                "Expected:\n"
                "x1 = %lg, x2 = %lg, nroots = %d \n\n",
@@ -23,7 +19,7 @@ int Test_Square(int num_test, equation *keys)
         return 0;
     }
 
-    printf(COLOR_GREEN "Test #%d Correct\n\n" RESET_ALL, num_test); // NOTE: total correct
+    printf(COLOR_GREEN "Test #%d Correct\n\n" COLOR_RESET, num_test); // NOTE: total correct
     return 1;
 }
 
@@ -38,10 +34,10 @@ void Do_Tests(int start_test, int end_test, equation *keys)
         }
     }
     if (correct == num_tests){
-    printf(COLOR_GREEN "Total correct:%d/%d.\n\n" RESET_ALL, correct, num_tests);
+    printf(COLOR_GREEN "Total correct:%d/%d.\n\n" COLOR_RESET, correct, num_tests);
     }
     else {
-    printf(COLOR_RED "Total correct:%d/%d.\n\n" RESET_ALL, correct, num_tests);
+    printf(COLOR_RED "Total correct:%d/%d.\n\n" COLOR_RESET, correct, num_tests);
     }
 }
 

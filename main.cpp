@@ -17,7 +17,7 @@ equation keys[10] = { // База данных для проверки прог�
     {{ -4,  9,-3}, {  0.40693,  1.84307}, TWO_SOL }
 };
 
-int main(void){
-    Choose_Path(keys);
+int main(int argc, char *argv[]){
+    Input_CommandInput(argc, argv, keys);
     return 0;
 }
