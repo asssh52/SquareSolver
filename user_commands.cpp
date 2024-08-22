@@ -2,13 +2,15 @@
 #include "sqrt_solver.hpp"
 #include "tester.hpp"
 
-void Input_coef(double input[])
+int Input_coef(double input[])
 {
     printf("%s\n", "Введите коэффициенты a,b,c:");
     if (scanf("%lf%lf%lf", &input[0], &input[1], &input[2]) != 3)
     {
         printf("%s\n", "Неправильный ввод");
+        return 0;
     }
+    return 1;
 }
 
 void Showanswer_Square(double input[], double roots[])
@@ -30,18 +32,24 @@ void Showanswer_Square(double input[], double roots[])
 }
 
 void Choose_Path(equation *keys){
-    if (Ask_User_Test() == 1){
-        double input[3] = {0, 0, 0}, roots[2] = {0, 0};
-        Input_coef(input);
+    double input[3] = {0, 0, 0}, roots[2] = {0, 0};
+    switch (Ask_User_Test()){
+    case 1:
+        if (Input_coef(input)){
         Showanswer_Square(input, roots);
-    }
-    else {
+        }
+        break;
+    case 0:
         Do_Tests(0, 9, keys);
+        break;
+    default:
+        printf("Неправильный ввод\n");
+        break;
     }
 }
 
 int Ask_User_Test(){
-    int a = 1;
+    int a = -1;
     printf("Привет!\nНажми 1 для решения квадратных уравнений или 0 для проверки программы.\n");
     scanf("%d", &a);
     return a;

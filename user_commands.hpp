@@ -5,7 +5,7 @@
 #include "tester.hpp"
 
 void Showanswer_Square(double input[], double roots[]);
-void Input_coef(double input[]);
+int Input_coef(double input[]);
 void Choose_Path(equation *keys);
 int Ask_User_Test();
 
