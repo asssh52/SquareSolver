@@ -17,7 +17,7 @@ CXX = clang++
 all: kek
 
 kek: sqrt_solver.o tester.o main.o user_commands.o
-	$(CXX) sqrt_solver.o tester.o main.o user_commands.o $(CXXFLAGS) -o main && ./main
+	$(CXX) sqrt_solver.o tester.o main.o user_commands.o $(CXXFLAGS) -o main && clear && ./main
 
 main.o: main.cpp
 	$(CXX) -c main.cpp
