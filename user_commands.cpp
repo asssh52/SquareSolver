@@ -1,7 +1,7 @@
 #include "user_commands.hpp"
 #include "sqrt_solver.hpp"
 #include "tester.hpp"
-
+#include <math.h>
 int Input_coef(double input[])
 {
     printf("%s\n", "Введите коэффициенты a,b,c:");
@@ -9,6 +9,12 @@ int Input_coef(double input[])
     {
         printf("%s\n", "Неправильный ввод");
         return 0;
+    }
+    for (int i = 0; i < 3; i++){
+        if (!isfinite(input[i])){
+            printf("%s\n", "Введите конечные числа");
+            return 0;
+        }
     }
     return 1;
 }
