@@ -12,9 +12,9 @@ int Input_Coef(coefficients *coeffs);
 void Showanswer_Square(coefficients coeffs, solutions *roots);
 void Start_Default(double *input, double *roots);
 int Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags);
-void Check_Flag(char *argv[], int num_arg, flags *list_of_flags);
-int Start_Default_FromFile(coefficients *coeffs, solutions *roots, char *file_link);
-void Input_CommandInput(int argc, char *argv[]);
+void Check_Flag(const char *argv[], int num_arg, flags *list_of_flags);
+int Start_Default_FromFile(coefficients *coeffs, solutions *roots, const char *file_link);
+void Input_CommandInput(int argc, const char *argv[]);
 int Check_FileLinkExist(int num_arg, int argc);
 
 void Start_Error(){
@@ -86,7 +86,7 @@ int Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags)
     return 0;
 }
 
-void Check_Flag(char *argv[], int *num_arg, int argc, flags *list_of_flags){
+void Check_Flag(const char *argv[], int *num_arg, int argc, flags *list_of_flags){
     if (strcmp(argv[*num_arg], "help") == 0){
             list_of_flags->help = 1;
         } else if (strcmp(argv[*num_arg], "test") == 0){
@@ -127,7 +127,7 @@ char *GetConfig_InputFile(){
     fclose(fp);
     return "config.txt";
 }*/
-int Start_Default_FromFile(coefficients *coeffs, solutions *roots, char *file_link){
+int Start_Default_FromFile(coefficients *coeffs, solutions *roots, const char *file_link){
     FILE *fp = NULL;
     fp = fopen(file_link, "r");
     if(fp == NULL) {
@@ -148,7 +148,7 @@ int Start_Default_FromFile(coefficients *coeffs, solutions *roots, char *file_li
     return 0;
 }
 
-void Input_CommandInput(int argc, char *argv[])
+void Input_CommandInput(int argc, const char *argv[])
 {
     flags command_flags = {0, 0, 0, 0, 0, NULL};
     coefficients coeffs = {0, 0, 0};
