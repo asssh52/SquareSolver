@@ -10,6 +10,8 @@ void Input_CommandInput(int argc, char *argv[], equation *keys)
     double input[3] = {NAN, NAN, NAN}, roots[2] = {0, 0};
     if (argc == 1){
         Start_Default(input, roots);
+    } else if (argc == 3 && strcmp(argv[1], "file") == 0) {
+        Start_Default_Fromfile(input, roots, argv[2]);
     } else {
         for (int i = 1; i < argc; i++){
             Check_Flag(argv[i], &command_flags);
@@ -55,7 +57,7 @@ char *GetConfig_InputFile(){
     fclose(fp);
     return "config.txt";
 }*/
-int Start_Default_File(double *input, double *roots, char *file_link){
+int Start_Default_Fromfile(double *input, double *roots, char *file_link){
     FILE *fp = fopen(file_link, "r");
     printf(COLOR_CYAN "\nRead from file: " COLOR_BLUE "%s" COLOR_RESET "\n", file_link);
 

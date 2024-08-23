@@ -6,7 +6,7 @@
 typedef struct{
     int list_flag[3];
 } flags;
-int Start_Default_File(double *input, double *roots, char *file_link);
+int Start_Default_Fromfile(double *input, double *roots, char *file_link);
 char *GetConfig_InputFile();
 void Command_Output(equation *keys, double *input, double *roots, flags *list_of_flags);
 void Check_Flag(char *flag, flags *list_of_flags);
