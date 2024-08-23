@@ -1,4 +1,5 @@
 #include "sqrt_solver.hpp"
+#include "globals.hpp"
 #include <math.h>
 
 int If_Zero(double a){
@@ -8,29 +9,27 @@ int If_Zero(double a){
     return 0;
 }
 
-int Solve_Linear(double *input, double *roots)
+int Solve_Linear(coefficients coeffs, solutions *roots)
 {
-    double b = input[1];
-    double c = input[2];
-
+    double b = coeffs.b;
+    double c = coeffs.c;
     if (If_Zero(b) && !If_Zero(c))  {
         return NONE_SOL;
     } else if (If_Zero(b) && If_Zero(c))  {
         return INF_SOL;
     } else if (!If_Zero(b)) {
-        roots[0] = -c / b;
+        roots->root1 = -c / b;
         return ONE_SOL;
     } else {
         return ERROR;
     }
 }
 
-int Solution_count(double *input)
+int Solution_count(coefficients coeffs)
 {
-    double a = input[0];
-    double b = input[1];
-    double c = input[2];
-
+    double a = coeffs.a;
+    double b = coeffs.b;
+    double c = coeffs.c;
     double discriminant = b * b - 4 * a * c;
     if (discriminant > 0){
         return TWO_SOL;
@@ -41,30 +40,29 @@ int Solution_count(double *input)
     }
 }
 
-int Solve_Square(double *input, double *roots)
+int Solve_Square(coefficients coeffs, solutions *roots)
 {
-    double a = input[0];
-    double b = input[1];
-    double c = input[2];
-
+    double a = coeffs.a;
+    double b = coeffs.b;
+    double c = coeffs.c;
     if (a == 0){
-        return Solve_Linear(input, roots);
+        return Solve_Linear(coeffs, roots);
     }
 
-    switch (Solution_count(input)) {
+    switch (Solution_count(coeffs)) {
         case TWO_SOL:
-            roots[0] = (-b - sqrt(b * b - 4 * a * c))/(2 * a);
-            roots[1] = (-b + sqrt(b * b - 4 * a * c))/(2 * a);
+            roots->root1 = (-b - sqrt(b * b - 4 * a * c))/(2 * a);
+            roots->root2 = (-b + sqrt(b * b - 4 * a * c))/(2 * a);
             if (a < 0){
                 double temp;
-                temp = roots[1];
-                roots[1] = roots[0];
-                roots[0] = temp;
+                temp = roots->root1;
+                roots->root1 = roots->root2;
+                roots->root2 = temp;
             }
             return TWO_SOL;
             break;
         case ONE_SOL:
-            roots[0] = -b / (2 * a);
+            roots->root1 = -b / (2 * a);
             return ONE_SOL;
         default:
             return NONE_SOL;
