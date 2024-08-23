@@ -6,7 +6,8 @@
 
 
 // свой ассерт func file line and exit()
-
+// flag file
+// docygen + readme
 
 int main(int argc, char *argv[]){
     Input_CommandInput(argc, argv);

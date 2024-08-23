@@ -11,10 +11,11 @@ void Start_Error();
 int Input_Coef(coefficients *coeffs);
 void Showanswer_Square(coefficients coeffs, solutions *roots);
 void Start_Default(double *input, double *roots);
-void Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags);
-void Check_Flag(char *flag, flags *list_of_flags);
-int Start_Default_Fromfile(coefficients coeffs, solutions *roots, char *file_link);
+int Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags);
+void Check_Flag(char *argv[], int num_arg, flags *list_of_flags);
+int Start_Default_FromFile(coefficients *coeffs, solutions *roots, char *file_link);
 void Input_CommandInput(int argc, char *argv[]);
+int Check_FileLinkExist(int num_arg, int argc);
 
 void Start_Error(){
     printf(COLOR_RED "\nError!!!\n" COLOR_RESET "Type " COLOR_CYAN "\'help\'" COLOR_RESET " for help.\n\n");
@@ -65,7 +66,14 @@ void Start_Default(coefficients *coeffs, solutions *roots){
     }
 }
 
-void Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags){
+int Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags){
+    if (list_of_flags->error){
+        Start_Error();
+        return 1;
+    }
+    if (list_of_flags->file){
+        Start_Default_FromFile(coeffs, roots, list_of_flags->file_argv);
+    }
     if (list_of_flags->help){
         Start_Help();
     }
@@ -75,18 +83,33 @@ void Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags
     if (list_of_flags->main){
         Start_Default(coeffs, roots);
     }
+    return 0;
 }
 
-void Check_Flag(char *flag, flags *list_of_flags){
-    if (strcmp(flag, "help") == 0){
+void Check_Flag(char *argv[], int *num_arg, int argc, flags *list_of_flags){
+    if (strcmp(argv[*num_arg], "help") == 0){
             list_of_flags->help = 1;
-        } else if (strcmp(flag, "test") == 0){
+        } else if (strcmp(argv[*num_arg], "test") == 0){
             list_of_flags->test = 1;
-        } else if (strcmp(flag, "default") == 0){
+        } else if (strcmp(argv[*num_arg], "default") == 0){
             list_of_flags->main = 1;
+        } else if (strcmp(argv[*num_arg], "file") == 0){
+            if (!Check_FileLinkExist(*num_arg, argc)){
+                list_of_flags->file = 1;
+                (*num_arg)++;
+                list_of_flags->file_argv = argv[*num_arg];
+            }
         } else {
-            Start_Error();
+            list_of_flags->error = 1;
         }
+}
+
+int Check_FileLinkExist(int num_arg, int argc){
+    if (num_arg >= --argc){
+        printf("File link does not exist.");
+        return 1;
+    }
+    return 0;
 }
 /* work in progress
 char *GetConfig_InputFile(){
@@ -104,14 +127,14 @@ char *GetConfig_InputFile(){
     fclose(fp);
     return "config.txt";
 }*/
-int Start_Default_Fromfile(coefficients *coeffs, solutions *roots, char *file_link){
-    FILE *fp = fopen(file_link, "r");
-    printf(COLOR_CYAN "\nRead from file: " COLOR_BLUE "%s" COLOR_RESET "\n", file_link);
-
+int Start_Default_FromFile(coefficients *coeffs, solutions *roots, char *file_link){
+    FILE *fp = NULL;
+    fp = fopen(file_link, "r");
     if(fp == NULL) {
         printf("Не удалось открыть файл.\n\n");
         return 1;
     }
+    printf(COLOR_CYAN "\nRead from file: " COLOR_BLUE "%s" COLOR_RESET "\n", file_link);
     if (fscanf(fp, "%lf%lf%lf", &(coeffs->a), &(coeffs->b), &(coeffs->c)) != 3){
         printf("Неправильный формат ввода в " COLOR_BLUE "%s" COLOR_RESET ".\n\n", file_link);
     } else {
@@ -125,24 +148,17 @@ int Start_Default_Fromfile(coefficients *coeffs, solutions *roots, char *file_li
     return 0;
 }
 
-void Input_CommandInput(int argc, char *argv[]) //todo const
+void Input_CommandInput(int argc, char *argv[])
 {
-    flags command_flags = {0, 0, 0, 0, 0};
+    flags command_flags = {0, 0, 0, 0, 0, NULL};
     coefficients coeffs = {0, 0, 0};
     solutions roots = {0, 0};
-    if (argc == 1){ // todo magick const
+    if (argc == ONE_ARG){
         Start_Default(&coeffs, &roots);
-    } else if (argc == 3 && strcmp(argv[1], "file") == 0) {
-        Start_Default_Fromfile(&coeffs, &roots, argv[2]);
     } else {
         for (int i = 1; i < argc; i++){
-            Check_Flag(argv[i], &command_flags);
+            Check_Flag(argv, &i, argc, &command_flags);
         }
         Command_Output(&coeffs, &roots, &command_flags);
     }
 }
-
-
-
-
-
