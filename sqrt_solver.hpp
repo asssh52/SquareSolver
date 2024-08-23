@@ -2,7 +2,7 @@
 #define functions_hpp
 
 #include <stdio.h>
-#include "globals.hpp"
+#include "tester.hpp"
 
 int Solve_Square(coefficients coeffs, solutions *roots);
 

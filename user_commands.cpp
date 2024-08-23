@@ -1,7 +1,7 @@
 #include "user_commands.hpp"
 #include "sqrt_solver.hpp"
 #include "tester.hpp"
-#include "globals.hpp"
+#include "colors.hpp"
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -127,7 +127,7 @@ int Start_Default_Fromfile(coefficients *coeffs, solutions *roots, char *file_li
 
 void Input_CommandInput(int argc, char *argv[]) //todo const
 {
-    flags command_flags = {0, 0, 0};
+    flags command_flags = {0, 0, 0, 0, 0};
     coefficients coeffs = {0, 0, 0};
     solutions roots = {0, 0};
     if (argc == 1){ // todo magick const

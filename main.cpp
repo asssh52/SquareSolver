@@ -3,7 +3,6 @@
 #include "sqrt_solver.hpp"
 #include "tester.hpp"
 #include "user_commands.hpp"
-#include "globals.hpp"
 
 
 // свой ассерт func file line and exit()

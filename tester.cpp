@@ -1,6 +1,6 @@
 #include "tester.hpp"
-#include "globals.hpp"
 #include "sqrt_solver.hpp"
+#include "colors.hpp"
 #include <math.h>
 
 int Test_Square(int num_test)
