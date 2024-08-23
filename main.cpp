@@ -4,6 +4,9 @@
 #include "tester.hpp"
 #include "user_commands.hpp"
 
+
+// -file "name.txt" coef from it
+// fopen fclose fscanf 
 equation keys[10] = { // База данных для проверки программы
     {{  1,  2, 3}, {        0,        0}, NONE_SOL},
     {{  1, -4, 3}, {        1,        3}, TWO_SOL },
