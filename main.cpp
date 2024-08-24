@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "tester.hpp"
 #include "user_commands.hpp"
 
 // docygen + readme
