@@ -19,5 +19,7 @@ TWO_ARG,
 THR_ARG
 };
 void Input_CommandInput(int argc, const char *argv[]);
-void myassert(int statement);
+void Start_Default(double *input, double *roots);
+void Check_Flag(const char *argv[], int num_arg, flags *list_of_flags);
+int Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags);
 #endif
