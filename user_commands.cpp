@@ -33,10 +33,10 @@ void Start_ErrorFlags(){
 
 void Start_Help(){
     printf(COLOR_BLUE "\nAvailable commands/flags:\n"
-           COLOR_CYAN "\"help\"" COLOR_RESET " - gives descriptions of available commands.\n"
-           COLOR_CYAN "\"test\"" COLOR_RESET " - launches unit test.\n"
+           COLOR_CYAN "\"help\""    COLOR_RESET " - gives descriptions of available commands.\n"
+           COLOR_CYAN "\"test\""    COLOR_RESET " - launches unit test.\n"
            COLOR_CYAN "\"default\"" COLOR_RESET " - launches quadratic equations with input solver from console.\n"
-           COLOR_CYAN "\"file " COLOR_GREEN "file_name" COLOR_CYAN "\"" COLOR_RESET " - launches quadratic equations solver with input from linked file.\n\n"
+           COLOR_CYAN "\"file "     COLOR_GREEN "file_name" COLOR_CYAN "\"" COLOR_RESET " - launches quadratic equations solver with input from linked file.\n\n"
     );
 }
 
