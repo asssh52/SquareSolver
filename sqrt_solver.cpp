@@ -1,5 +1,6 @@
 #include "sqrt_solver.hpp"
 #include "tester.hpp"
+#include "user_commands.hpp"
 #include <math.h>
 
 int If_Zero(double a){
@@ -8,9 +9,7 @@ int If_Zero(double a){
     }
     return 0;
 }
-
-int Solve_Linear(coefficients coeffs, solutions *roots)
-{
+int Solve_Linear(coefficients coeffs, solutions *roots){
     double b = coeffs.b;
     double c = coeffs.c;
     if (If_Zero(b) && !If_Zero(c))  {
@@ -25,8 +24,7 @@ int Solve_Linear(coefficients coeffs, solutions *roots)
     }
 }
 
-int Solution_count(coefficients coeffs)
-{
+int Solution_count(coefficients coeffs){
     double a = coeffs.a;
     double b = coeffs.b;
     double c = coeffs.c;
@@ -42,13 +40,13 @@ int Solution_count(coefficients coeffs)
 
 int Solve_Square(coefficients coeffs, solutions *roots)
 {
+    MYASSERT(roots != NULL);
     double a = coeffs.a;
     double b = coeffs.b;
     double c = coeffs.c;
     if (a == 0){
         return Solve_Linear(coeffs, roots);
     }
-
     switch (Solution_count(coeffs)) {
         case TWO_SOL:
             roots->root1 = (-b - sqrt(b * b - 4 * a * c))/(2 * a);

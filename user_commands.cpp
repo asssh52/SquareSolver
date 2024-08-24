@@ -5,9 +5,11 @@
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void Start_Help();
 void Start_Error();
+void Start_ErrorFlags();
 int Input_Coef(coefficients *coeffs);
 void Showanswer_Square(coefficients coeffs, solutions *roots);
 void Start_Default(double *input, double *roots);
@@ -16,15 +18,24 @@ void Check_Flag(const char *argv[], int num_arg, flags *list_of_flags);
 int Start_Default_FromFile(coefficients *coeffs, solutions *roots, const char *file_link);
 void Input_CommandInput(int argc, const char *argv[]);
 int Check_FileLinkExist(int num_arg, int argc);
+int Input_FileLink(const char* file_link, FILE **fp);
+int InputCoef_FromFile(coefficients *coeffs, FILE *fp);
+int CheckFinite(coefficients *coeffs);
+int SolveSquare_FromFile(coefficients *coeffs, solutions *roots, FILE *fp, const char *file_link);
 
 void Start_Error(){
     printf(COLOR_RED "\nError!!!\n" COLOR_RESET "Type " COLOR_CYAN "\'help\'" COLOR_RESET " for help.\n\n");
 }
 
+void Start_ErrorFlags(){
+    printf(COLOR_RED "\nError!!!\n" COLOR_RESET "Unknown flags. Type " COLOR_CYAN "\'help\'" COLOR_RESET " for help.\n\n");
+}
+
 void Start_Help(){
-    printf(COLOR_BLUE "\nCommands:\n" COLOR_CYAN "\'help\'" COLOR_RESET " - gives descriptions of available commands.\n"
-    COLOR_CYAN "\'test\'" COLOR_RESET " - launches unit test.\n"
-    COLOR_CYAN "\'default\'" COLOR_RESET " or " COLOR_CYAN "\'\'"COLOR_RESET " - launches quadratic equations solver.\n\n"
+    printf(COLOR_BLUE "\nAvailable commands/flags:\n" COLOR_CYAN "\"help\"" COLOR_RESET " - gives descriptions of available commands.\n"
+    COLOR_CYAN "\"test\"" COLOR_RESET " - launches unit test.\n"
+    COLOR_CYAN "\"default\"" COLOR_RESET " - launches quadratic equations with input solver from console.\n"
+    COLOR_CYAN "\"file " COLOR_GREEN "file_name" COLOR_CYAN "\"" COLOR_RESET " - launches quadratic equations solver with input from linked file.\n\n"
     );
 }
 
@@ -35,6 +46,7 @@ int Input_Coef(coefficients *coeffs){
         printf("%s\n", "Неправильный ввод");
         return 1;
     }
+    MYASSERT(coeffs != NULL);
     if (!isfinite(coeffs->a) || !isfinite(coeffs->b) || !isfinite(coeffs->c)){
             printf("%s\n", "Введите конечные числа");
             return 1;
@@ -44,6 +56,7 @@ int Input_Coef(coefficients *coeffs){
 
 void Showanswer_Square(coefficients coeffs, solutions *roots)
 {
+    MYASSERT(roots != NULL);
     switch (Solve_Square(coeffs, roots)){
         case NONE_SOL:
             printf("Нет действительных решений\n\n");
@@ -61,14 +74,16 @@ void Showanswer_Square(coefficients coeffs, solutions *roots)
 }
 
 void Start_Default(coefficients *coeffs, solutions *roots){
+    MYASSERT(coeffs != NULL && roots != NULL);
     if (!Input_Coef(coeffs)){
         Showanswer_Square(*coeffs, roots);
     }
 }
 
 int Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags){
+    MYASSERT(coeffs != NULL && roots != NULL && list_of_flags != NULL);
     if (list_of_flags->error){
-        Start_Error();
+        Start_ErrorFlags();
         return 1;
     }
     if (list_of_flags->file){
@@ -87,6 +102,7 @@ int Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags)
 }
 
 void Check_Flag(const char *argv[], int *num_arg, int argc, flags *list_of_flags){
+    MYASSERT(argv != NULL && num_arg != NULL && list_of_flags != NULL);
     if (strcmp(argv[*num_arg], "help") == 0){
             list_of_flags->help = 1;
         } else if (strcmp(argv[*num_arg], "test") == 0){
@@ -106,7 +122,7 @@ void Check_Flag(const char *argv[], int *num_arg, int argc, flags *list_of_flags
 
 int Check_FileLinkExist(int num_arg, int argc){
     if (num_arg >= --argc){
-        printf("File link does not exist.");
+        printf(COLOR_RED "\nFile link does not exist.\n" COLOR_RESET);
         return 1;
     }
     return 0;
@@ -128,24 +144,54 @@ char *GetConfig_InputFile(){
     return "config.txt";
 }*/
 int Start_Default_FromFile(coefficients *coeffs, solutions *roots, const char *file_link){
+    MYASSERT(coeffs != NULL && roots != NULL && file_link != NULL);
     FILE *fp = NULL;
-    fp = fopen(file_link, "r");
-    if(fp == NULL) {
-        printf("Не удалось открыть файл.\n\n");
-        return 1;
-    }
-    printf(COLOR_CYAN "\nRead from file: " COLOR_BLUE "%s" COLOR_RESET "\n", file_link);
-    if (fscanf(fp, "%lf%lf%lf", &(coeffs->a), &(coeffs->b), &(coeffs->c)) != 3){
-        printf("Неправильный формат ввода в " COLOR_BLUE "%s" COLOR_RESET ".\n\n", file_link);
-    } else {
-        if (!isfinite(coeffs->a) || !isfinite(coeffs->b) || !isfinite(coeffs->c)){
-            printf("%s\n", "Введите конечные числа");
-            return 1;
-        }
-        Showanswer_Square(*coeffs, roots);
+    if (!Input_FileLink(file_link, &fp)){
+        SolveSquare_FromFile(coeffs, roots, fp, file_link);
     }
     fclose(fp);
     return 0;
+}
+int SolveSquare_FromFile(coefficients *coeffs, solutions *roots, FILE *fp, const char *file_link){
+    MYASSERT(coeffs != NULL && roots != NULL && file_link != NULL && fp != NULL);
+    if (InputCoef_FromFile(coeffs, fp)){
+        printf("Неправильный формат ввода в " COLOR_BLUE "%s" COLOR_RESET ".\n\n", file_link);
+        fclose(fp);
+        return 1;
+    } else if (CheckFinite(coeffs)){
+        printf("Введите конечные числа в " COLOR_BLUE "%s" COLOR_RESET ".\n\n", file_link);
+        fclose(fp);
+        return 1;
+    }
+    Showanswer_Square(*coeffs, roots);
+    return 0;
+}
+
+int Input_FileLink(const char* file_link, FILE **fp){
+    MYASSERT(file_link != NULL);
+    *fp = fopen(file_link, "r");
+    if(*fp == NULL) {
+        printf(COLOR_RED "\nError!!!\n" COLOR_RESET "Не удалось открыть файл. Проверьте адрес файла.\n\n");
+        return 1;
+    }
+    printf(COLOR_CYAN "\nRead from file: " COLOR_BLUE "%s" COLOR_RESET "\n", file_link);
+    return 0;
+}
+
+int InputCoef_FromFile(coefficients *coeffs, FILE *fp){
+    MYASSERT(coeffs != NULL && fp != NULL);
+    if (fscanf(fp, "%lf%lf%lf", &(coeffs->a), &(coeffs->b), &(coeffs->c)) == 3){
+        return 0;
+    }
+    return 1;
+}
+
+int CheckFinite(coefficients *coeffs){
+    MYASSERT(coeffs != NULL);
+    if (isfinite(coeffs->a) && isfinite(coeffs->b) && isfinite(coeffs->c)){
+        return 0;
+    }
+    return 1;
 }
 
 void Input_CommandInput(int argc, const char *argv[])
@@ -156,8 +202,8 @@ void Input_CommandInput(int argc, const char *argv[])
     if (argc == ONE_ARG){
         Start_Default(&coeffs, &roots);
     } else {
-        for (int i = 1; i < argc; i++){
-            Check_Flag(argv, &i, argc, &command_flags);
+        for (int num_arg = 1; num_arg < argc; num_arg++){
+            Check_Flag(argv, &num_arg, argc, &command_flags);
         }
         Command_Output(&coeffs, &roots, &command_flags);
     }

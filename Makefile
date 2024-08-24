@@ -14,12 +14,12 @@ CXXFLAGS = -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-l
 
 
 CXX = clang++
-all: kek
+all: meow
 
-kek: sqrt_solver.o tester.o main.o user_commands.o
+meow: sqrt_solver.o tester.o main.o user_commands.o
 	$(CXX) sqrt_solver.o tester.o main.o user_commands.o $(CXXFLAGS) -o main && clear
 
-main.o: main.cpp
+main.o: main.cpp colors.hpp
 	$(CXX) -c main.cpp
 
 tester.o: tester.cpp tester.hpp
