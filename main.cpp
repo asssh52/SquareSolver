@@ -2,7 +2,7 @@
 #include "tester.hpp"
 #include "user_commands.hpp"
 
-// docygen + readme
+// doxygen + readme
 
 int main(int argc, const char *argv[]){
     flags command_flags = {0, 0, 0, 0, 0, NULL};

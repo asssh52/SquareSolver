@@ -3,6 +3,7 @@
 #include "colors.hpp"
 #include <math.h>
 
+
 int Test_Square(int num_test)
 {
     solutions roots = {0, 0};
