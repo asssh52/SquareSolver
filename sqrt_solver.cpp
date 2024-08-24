@@ -3,6 +3,12 @@
 #include "user_commands.hpp"
 #include <math.h>
 
+double Solve_Discriminant(coefficients coeffs);
+int Solve_Linear(coefficients coeffs, solutions *roots);
+int If_Zero(double a);
+int Solution_count(double discriminant);
+int Solve_Square(coefficients coeffs, solutions *roots);
+
 int If_Zero(double a){
     if (fabs(a) <= epsilon){
         return 1;
@@ -24,18 +30,18 @@ int Solve_Linear(coefficients coeffs, solutions *roots){
     }
 }
 
-int Solution_count(coefficients coeffs){
-    double a = coeffs.a;
-    double b = coeffs.b;
-    double c = coeffs.c;
-    double discriminant = b * b - 4 * a * c;
+int Solution_count(double discriminant){
     if (discriminant > 0){
         return TWO_SOL;
-    } else if (discriminant == 0){
+    } else if (If_Zero(discriminant)){
         return ONE_SOL;
     } else {
         return NONE_SOL;
     }
+}
+
+double Solve_Discriminant(coefficients coeffs){
+    return (coeffs.b * coeffs.b - 4 * coeffs.a * coeffs.c);
 }
 
 int Solve_Square(coefficients coeffs, solutions *roots)
@@ -47,13 +53,13 @@ int Solve_Square(coefficients coeffs, solutions *roots)
     if (a == 0){
         return Solve_Linear(coeffs, roots);
     }
-    switch (Solution_count(coeffs)) {
+    double discriminant = Solve_Discriminant(coeffs);
+    switch (Solution_count(discriminant)) {
         case TWO_SOL:
-            roots->root1 = (-b - sqrt(b * b - 4 * a * c))/(2 * a);
-            roots->root2 = (-b + sqrt(b * b - 4 * a * c))/(2 * a);
+            roots->root1 = (-b - sqrt(discriminant))/(2 * a);
+            roots->root2 = (-b + sqrt(discriminant))/(2 * a);
             if (a < 0){
-                double temp;
-                temp = roots->root1;
+                double temp = roots->root1;
                 roots->root1 = roots->root2;
                 roots->root2 = temp;
             }

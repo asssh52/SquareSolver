@@ -32,10 +32,11 @@ void Start_ErrorFlags(){
 }
 
 void Start_Help(){
-    printf(COLOR_BLUE "\nAvailable commands/flags:\n" COLOR_CYAN "\"help\"" COLOR_RESET " - gives descriptions of available commands.\n"
-    COLOR_CYAN "\"test\"" COLOR_RESET " - launches unit test.\n"
-    COLOR_CYAN "\"default\"" COLOR_RESET " - launches quadratic equations with input solver from console.\n"
-    COLOR_CYAN "\"file " COLOR_GREEN "file_name" COLOR_CYAN "\"" COLOR_RESET " - launches quadratic equations solver with input from linked file.\n\n"
+    printf(COLOR_BLUE "\nAvailable commands/flags:\n"
+           COLOR_CYAN "\"help\"" COLOR_RESET " - gives descriptions of available commands.\n"
+           COLOR_CYAN "\"test\"" COLOR_RESET " - launches unit test.\n"
+           COLOR_CYAN "\"default\"" COLOR_RESET " - launches quadratic equations with input solver from console.\n"
+           COLOR_CYAN "\"file " COLOR_GREEN "file_name" COLOR_CYAN "\"" COLOR_RESET " - launches quadratic equations solver with input from linked file.\n\n"
     );
 }
 
@@ -48,7 +49,7 @@ int Input_Coef(coefficients *coeffs){
     }
     MYASSERT(coeffs != NULL);
     if (!isfinite(coeffs->a) || !isfinite(coeffs->b) || !isfinite(coeffs->c)){
-            printf("%s\n", "Введите конечные числа");
+            printf("%s\n", "Введите кончeные числа");
             return 1;
         }
     return 0;
