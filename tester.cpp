@@ -20,13 +20,13 @@ int Test_Square(int num_test)
                "a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, nroots = %d\n"
                "Expected:\n"
                "x1 = %lg, x2 = %lg, nroots = %d \n\n",
-               num_test,
+               num_test + 1,
                keys[num_test].coeffs.a, keys[num_test].coeffs.b, keys[num_test].coeffs.c, roots.root1, roots.root2, n,
                keys[num_test].expected.root1, keys[num_test].expected.root2, keys[num_test].nroots);
         return 0;
     }
 
-    printf(COLOR_GREEN "Test #%d Correct\n\n" COLOR_RESET, num_test); // NOTE: total correct
+    printf(COLOR_GREEN "Test #%d Correct\n\n" COLOR_RESET, num_test + 1); // NOTE: total correct
     return 1;
 }
 

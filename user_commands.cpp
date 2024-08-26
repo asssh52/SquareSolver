@@ -243,11 +243,11 @@ int Start_Default_FromFile(coefficients *coeffs, solutions *roots, const char *f
 int SolveSquare_FromFile(coefficients *coeffs, solutions *roots, FILE *fp, const char *file_link){
     MYASSERT(coeffs != NULL && roots != NULL && file_link != NULL && fp != NULL);
     if (InputCoef_FromFile(coeffs, fp)){
-        printf("Неправильный формат ввода в " COLOR_BLUE "%s" COLOR_RESET ".\n\n", file_link);
+        printf("Wrong format in " COLOR_BLUE "%s" COLOR_RESET ".\n\n", file_link);
         fclose(fp);
         return 1;
     } else if (CheckFinite(coeffs)){
-        printf("Введите конечные числа в " COLOR_BLUE "%s" COLOR_RESET ".\n\n", file_link);
+        printf("Enter finite numbers in " COLOR_BLUE "%s" COLOR_RESET ".\n\n", file_link);
         fclose(fp);
         return 1;
     }
@@ -266,7 +266,7 @@ int Input_FileLink(const char* file_link, FILE **fp){
     MYASSERT(file_link != NULL);
     *fp = fopen(file_link, "r");
     if(*fp == NULL) {
-        perror(COLOR_RED "\nError!!!\n" COLOR_RESET "Не удалось открыть файл. Проверьте адрес файла");
+        perror(COLOR_RED "\nError!!!\n" COLOR_RESET "Cannot open file. Check file link");
         return 1;
     }
     printf(COLOR_CYAN "\nRead from file: " COLOR_BLUE "%s" COLOR_RESET "\n", file_link);

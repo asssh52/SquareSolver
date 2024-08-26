@@ -36,7 +36,7 @@ const test_equation keys[] = { // База данных для проверки 
     {  0,  0, 0,         0,        0, INF_SOL },
     { -4,  9,-3,   0.40693,  1.84307, TWO_SOL }
 };
-const size_t NUMTEST = 10;
+const size_t NUMTEST = 9;
 const double epsilon = 1e-5;
 void Do_Tests(int start_test, int end_test);
 
