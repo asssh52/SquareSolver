@@ -91,7 +91,7 @@ int Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags)
         Start_Help();
     }
     if (list_of_flags->test){
-        Do_Tests(0, 9);
+        Do_Tests(0, NUMTEST);
     }
     if (list_of_flags->main){
         Start_Default(coeffs, roots);
