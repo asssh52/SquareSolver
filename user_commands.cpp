@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Start_Help();
+void Start_Help(); // static???
 void Start_Error();
 void Start_ErrorFlags();
 int Input_Coef(coefficients *coeffs);
@@ -129,25 +129,6 @@ int Command_Output(coefficients *coeffs, solutions *roots, flags *list_of_flags)
     return 0;
 }
 
-/*void Check_Flag(const char *argv[], int *num_arg, int argc, flags *list_of_flags){
-    MYASSERT(argv != NULL && num_arg != NULL && list_of_flags != NULL);
-    if (strcmp(argv[*num_arg], "help") == 0){
-            list_of_flags->help = 1;
-        } else if (strcmp(argv[*num_arg], "test") == 0){
-            list_of_flags->test = 1;
-        } else if (strcmp(argv[*num_arg], "default") == 0){
-            list_of_flags->main = 1;
-        } else if (strcmp(argv[*num_arg], "file") == 0){
-            if (!Check_FileLinkExist(*num_arg, argc)){
-                list_of_flags->file = 1;
-                (*num_arg)++;
-                list_of_flags->file_argv = argv[*num_arg];
-            }
-        } else {
-            list_of_flags->error = 1;
-        }
-}*/
-
 /**
  * @brief Launches different branches of programm based on checked flags.
  * @param Pointer pointer to console arguments.
@@ -195,22 +176,6 @@ int Check_FileLinkExist(int num_arg, int argc){
     }
     return 0;
 }
-/* work in progress
-char *GetConfig_InputFile(){
-    FILE *fp = fopen("config.txt", "r");
-
-    char storage[100][2];
-    char* meow[2] = {&storage[0][0], &storage[0][1]};
-    fscanf(fp, "%s%s", meow);
-    printf("%s\n%s", storage);
-
-    char str[1000];
-    fscanf(fp, "%s", &str[0]);
-    printf("%s", str);
-
-    fclose(fp);
-    return "config.txt";
-}*/
 
 /**
  * @brief Starts default quadratic equations solver with input from file.

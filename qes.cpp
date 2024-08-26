@@ -2,8 +2,6 @@
 #include "tester.hpp"
 #include "user_commands.hpp"
 
-// doxygen + readme
-
 int main(int argc, const char *argv[]){
     flags command_flags = {0, 0, 0, 0, 0, NULL};
     coefficients coeffs = {0, 0, 0};
