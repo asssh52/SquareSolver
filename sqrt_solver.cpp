@@ -8,6 +8,7 @@ int Solve_Linear(coefficients coeffs, solutions *roots);
 int If_Zero(double a);
 int Solution_count(double discriminant);
 int Solve_Square(coefficients coeffs, solutions *roots);
+void Swapper(double* first, double* second);
 
 /**
  * @brief Returns True if the absolute value of a number is less than epsilon constant, in other cases False.
@@ -99,9 +100,7 @@ int Solve_Square(coefficients coeffs, solutions *roots)
             roots->root2 = (-b + sqrt(discriminant))/(2 * a);
 
             if (a < 0){
-                double temp = roots->root1;
-                roots->root1 = roots->root2;
-                roots->root2 = temp;
+                Swapper(&(roots->root1), &(roots->root2));
             }
 
             return TWO_SOL;
@@ -115,4 +114,16 @@ int Solve_Square(coefficients coeffs, solutions *roots)
             return NONE_SOL;
             break;
     }
+}
+
+/**
+ * @brief Swaps values of two pointers
+ * @param Pointer to first number
+ * @param Pointer to second number
+*/
+
+void Swapper(double* first, double* second){
+    double temp = *second;
+    *second = *first;
+    *first = temp;
 }

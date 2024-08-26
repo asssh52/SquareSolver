@@ -16,11 +16,11 @@ CXXFLAGS = -D _DEBUG -ggdb3 -std=c++17 -O0 -Wall -Wextra -Weffc++ -Waggressive-l
 CXX = clang++
 all: meow
 
-meow: sqrt_solver.o tester.o qes.o user_commands.o
-	$(CXX) sqrt_solver.o tester.o qes.o user_commands.o $(CXXFLAGS) -o qes && clear
+meow: sqrt_solver.o tester.o main.o user_commands.o
+	$(CXX) sqrt_solver.o tester.o main.o user_commands.o $(CXXFLAGS) -o main && clear
 
-qes.o: qes.cpp colors.hpp
-	$(CXX) -c qes.cpp
+main.o: main.cpp colors.hpp
+	$(CXX) -c main.cpp
 
 tester.o: tester.cpp tester.hpp
 	$(CXX) -c tester.cpp
@@ -32,4 +32,4 @@ user_commands.o: user_commands.cpp user_commands.hpp
 	$(CXX) -c user_commands.cpp
 
 clean:
-	rm -f sqrt_solver.o tester.o qes.o user_commands.o main
+	rm -f sqrt_solver.o tester.o main.o user_commands.o main
