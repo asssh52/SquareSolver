@@ -40,4 +40,10 @@ const size_t NUMTEST = 10;
 const double epsilon = 1e-5;
 void Do_Tests(int start_test, int end_test);
 
+/*********************************************************************
+ * @file  tester.cpp
+ *
+ * @brief Tester functions
+ *********************************************************************/
+
 #endif

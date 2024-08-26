@@ -3,6 +3,11 @@
 #include "colors.hpp"
 #include <math.h>
 
+/**
+ * @brief Check the Solve_Square function on given tests (keys structure).
+ * @param Number of the test.
+ * @return Return 1 if test was completed correctly, 0 in other cases.
+*/
 
 int Test_Square(int num_test)
 {
@@ -24,6 +29,12 @@ int Test_Square(int num_test)
     printf(COLOR_GREEN "Test #%d Correct\n\n" COLOR_RESET, num_test); // NOTE: total correct
     return 1;
 }
+
+/**
+ * @brief Checks the Solve_Square function on given tests (keys structure).
+ * @param Starting number of test.
+ * @param Ending number of test.
+*/
 
 void Do_Tests(int start_test, int end_test)
 {
