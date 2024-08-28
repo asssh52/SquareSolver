@@ -10,10 +10,12 @@ QES is a console programm that can help you to find roots of the quadratic equat
 - Enjoy beautiful 🌈 colorful 🌈  text in console. 
 
 ## Availible flags
-- **help** - gives a brief description of commands. 
-- **test** - launches unit test.
-- **default** - launches solver in console.
-- **file *"file name"*** - launches solver with input from linked file.
+| Command                | Description                                  |
+|------------------------|----------------------------------------------|
+| **help**               | gives a brief description of commands.       |
+| **test**               | launches unit test.                          |
+| **default**            | launches solver in console.                  |
+| **file *"file name"*** | launches solver with input from linked file. |
 
 > [!WARNING]
 > Try not to enter too **LARGE** or too ***small*** numbers, program may work incorrectly.
