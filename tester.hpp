@@ -1,6 +1,7 @@
 #ifndef tester_hpp
 #define tester_hpp
 #include <stdio.h>
+
 enum num_solutions{
     NONE_SOL,
     ONE_SOL,
@@ -8,6 +9,7 @@ enum num_solutions{
     INF_SOL,
     ERROR
 };
+
 typedef struct{
     double a;
     double b;
@@ -24,6 +26,7 @@ typedef struct{
     solutions expected;
     int nroots;
 } test_equation;
+
 const test_equation keys[] = { // База данных для проверки программы
     {  1,  2, 3,         0,        0, NONE_SOL},
     {  1, -4, 3,         1,        3, TWO_SOL },
@@ -36,6 +39,7 @@ const test_equation keys[] = { // База данных для проверки 
     {  0,  0, 0,         0,        0, INF_SOL },
     { -4,  9,-3,   0.40693,  1.84307, TWO_SOL }
 };
+
 const size_t NUMTEST = 9;
 const double epsilon = 1e-5;
 void Do_Tests(int start_test, int end_test);

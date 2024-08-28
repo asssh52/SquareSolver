@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void Start_Help(); // static???
+void Start_Help();
 void Start_Error();
 void Start_ErrorFlags();
 int Input_Coef(coefficients *coeffs);
@@ -154,6 +154,7 @@ void Check_Flag(const char *argv[], int *num_arg, int argc, flags *list_of_flags
             if (!Check_FileLinkExist(*num_arg, argc)){
                 list_of_flags->file = 1;
                 (*num_arg)++;
+
                 list_of_flags->file_argv = argv[*num_arg];
             }
 
@@ -187,6 +188,7 @@ int Check_FileLinkExist(int num_arg, int argc){
 
 int Start_Default_FromFile(coefficients *coeffs, solutions *roots, const char *file_link){
     MYASSERT(coeffs != NULL && roots != NULL && file_link != NULL);
+
     FILE *fp = NULL;
     if (!Input_FileLink(file_link, &fp)){
         SolveSquare_FromFile(coeffs, roots, fp, file_link);
@@ -207,6 +209,7 @@ int Start_Default_FromFile(coefficients *coeffs, solutions *roots, const char *f
 
 int SolveSquare_FromFile(coefficients *coeffs, solutions *roots, FILE *fp, const char *file_link){
     MYASSERT(coeffs != NULL && roots != NULL && file_link != NULL && fp != NULL);
+
     if (InputCoef_FromFile(coeffs, fp)){
         printf("Wrong format in " COLOR_BLUE "%s" COLOR_RESET ".\n\n", file_link);
         fclose(fp);
@@ -230,10 +233,12 @@ int SolveSquare_FromFile(coefficients *coeffs, solutions *roots, FILE *fp, const
 int Input_FileLink(const char* file_link, FILE **fp){
     MYASSERT(file_link != NULL);
     *fp = fopen(file_link, "r");
+
     if(*fp == NULL) {
         perror(COLOR_RED "\nError!!!\n" COLOR_RESET "Cannot open file. Check file link");
         return 1;
     }
+
     printf(COLOR_CYAN "\nRead from file: " COLOR_BLUE "%s" COLOR_RESET "\n", file_link);
     return 0;
 }

@@ -10,13 +10,15 @@
 */
 int Compare_Double(double first, double second);
 
-int Test_Square(int num_test)
-{
+int Test_Square(int num_test){
     solutions roots = {0, 0};
+
     int n = Solve_Square(keys[num_test].coeffs, &roots);
+
     if (n != keys[num_test].nroots ||
         !Compare_Double(keys[num_test].expected.root1, roots.root1) ||
         !Compare_Double(keys[num_test].expected.root2, roots.root2)){
+
         printf(COLOR_RED "Test #%d Error\n" COLOR_RESET
                "a = %lg, b = %lg, c = %lg, x1 = %lg, x2 = %lg, nroots = %d\n"
                "Expected:\n"
@@ -41,11 +43,13 @@ void Do_Tests(int start_test, int end_test)
 {
     int correct = 0;
     int num_tests = end_test-start_test+1;
+
     for (int i = start_test; i <= end_test; i++){
         if (Test_Square(i)){
             correct++;
         }
     }
+    
     if (correct == num_tests){
     printf(COLOR_GREEN "\nTotal correct:%d/%d.\n\n" COLOR_RESET, correct, num_tests);
     }

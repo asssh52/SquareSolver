@@ -79,6 +79,7 @@ double Solve_Discriminant(coefficients coeffs){
  * @param Coefficients
  * @param Solutions
 */
+
 int Solve_Square(coefficients coeffs, solutions *roots)
 {
     MYASSERT(roots != NULL);
